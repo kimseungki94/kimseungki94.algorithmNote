@@ -59,6 +59,7 @@ public class DeleteLinkedList<T> {
         return null;
     }
 
+    // 삭제처리
     public boolean deleteNode(T data) {
         if (this.head == null) {
             return false;
