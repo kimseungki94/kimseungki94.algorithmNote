@@ -59,14 +59,13 @@ public class DeleteLinkedList<T> {
         return null;
     }
 
-    // 삭제처리 메소드
-    public boolean deleteNode(T data) {
+    public boolean deleteNode(T isData) {
         if (this.head == null) {
             return false;
         } else {
             Node<T> node = this.head;
             while (node.next != null) {
-                if (node.next.data == data) {
+                if (node.next.data == isData) {
                     node.next = node.next.next;
                     return true;
                 }
@@ -75,7 +74,6 @@ public class DeleteLinkedList<T> {
             return false;
         }
     }
-
 
     public static void main(String[] args) {
         DeleteLinkedList<Integer> linkedList = new DeleteLinkedList<>();
