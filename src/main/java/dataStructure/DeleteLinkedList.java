@@ -59,6 +59,21 @@ public class DeleteLinkedList<T> {
         return null;
     }
 
+    public boolean deleteNode(T data) {
+        if (this.head == null) {
+            return false;
+        } else {
+            Node<T> node = this.head;
+            while (node.next != null) {
+                if (node.next.data == data) {
+                    node.next = node.next.next;
+                    return true;
+                }
+                node = node.next;
+            }
+            return false;
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -67,8 +82,12 @@ public class DeleteLinkedList<T> {
         linkedList.addNode(2);
         linkedList.addNode(3);
         linkedList.printAll();
+        System.out.println();
         linkedList.addNodeInside(5, 2);
         linkedList.addNodeInside(13, 20);
         linkedList.printAll();
-    }    
+        System.out.println();
+        linkedList.deleteNode(5);
+        linkedList.printAll();
+    }
 }
