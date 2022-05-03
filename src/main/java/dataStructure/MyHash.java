@@ -8,9 +8,12 @@ public class MyHash {
     }
 
     private class Slot {
+        String key;
         String value;
+        Slot next;
 
-        public Slot(String value) {
+        public Slot(String key, String value) {
+            this.key = key;
             this.value = value;
         }
     }
@@ -19,18 +22,40 @@ public class MyHash {
         return ((int) value.charAt(0) % 20);
     }
 
-    public void insertData(String key, String value) {
+    public boolean insertData(String key, String value) {
         Integer address = findKey(key);
         if (this.hashTable[address] != null) {
-            this.hashTable[address].value = value;
+            Slot prevSlot = this.hashTable[address];
+            Slot nextSlot = this.hashTable[address];
+
+            while (nextSlot != null) {
+                if (nextSlot.key == key) {
+                    nextSlot.value = value;
+                    return true;
+                } else {
+                    prevSlot = nextSlot;
+                    nextSlot = nextSlot.next;
+                }
+            }
+            prevSlot.next = new Slot(key, value);
         } else {
-            this.hashTable[address] = new Slot(value);
+            this.hashTable[address] = new Slot(key, value);
         }
+        return true;
     }
+
     public String findValue(String key) {
         Integer address = findKey(key);
         if (this.hashTable[address] != null) {
-            return this.hashTable[address].value;
+            Slot nextSlot = this.hashTable[address];
+            while (nextSlot != null) {
+                if (nextSlot.key == key) {
+                    return nextSlot.value;
+                } else {
+                    nextSlot = nextSlot.next;
+                }
+            }
+            return null;
         } else {
             return null;
         }
@@ -38,11 +63,12 @@ public class MyHash {
 
     public static void main(String[] args) {
         MyHash hash = new MyHash(20);
-        hash.insertData("1","aaa");
-        hash.insertData("2","bbb");
-        hash.insertData("3","ccc");
-        hash.insertData("4","ddd");
-        System.out.println(hash.findValue("3"));
+        hash.insertData("abc", "aaa");
+        hash.insertData("apple", "bbb");
+        hash.insertData("3", "ccc");
+        hash.insertData("3", "ccc");
+        hash.insertData("4", "ddd");
+        System.out.println(hash.findValue("abc"));
 
     }
 }
