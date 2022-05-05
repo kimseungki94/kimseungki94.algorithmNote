@@ -58,7 +58,7 @@ public class BinaryTreeBasic {
         }
         return null;
     }
-
+    //메인
     public static void main(String[] args) {
         BinaryTreeBasic tree = new BinaryTreeBasic();
         tree.addNode(1);
