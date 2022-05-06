@@ -1,1 +1,1 @@
-# kimseungki94.fastcampusAlgorithmHub
+# 패스트캠퍼스 알고리즘
