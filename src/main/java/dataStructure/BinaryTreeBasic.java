@@ -61,6 +61,7 @@ public class BinaryTreeBasic {
     //메인
     public static void main(String[] args) {
         BinaryTreeBasic tree = new BinaryTreeBasic();
+
         tree.addNode(1);
         tree.addNode(2);
         tree.addNode(3);
