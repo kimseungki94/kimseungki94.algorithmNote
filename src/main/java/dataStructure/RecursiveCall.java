@@ -55,5 +55,6 @@ public class RecursiveCall {
         System.out.println(arrayList.subList(0, arrayList.size()));
         System.out.println(recursiveCall.addArrayList(arrayList));
         System.out.println(recursiveCall.combination(4));
+        System.out.println(recursiveCall.combination(5));
     }
 }
