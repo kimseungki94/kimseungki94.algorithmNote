@@ -56,5 +56,7 @@ public class RecursiveCall {
         System.out.println(recursiveCall.addArrayList(arrayList));
         System.out.println(recursiveCall.combination(4));
         System.out.println(recursiveCall.combination(5));
+        System.out.println(recursiveCall.fibonacciRecursive(5));
+        System.out.println(recursiveCall.fibonacciRecursive(6));
     }
 }
