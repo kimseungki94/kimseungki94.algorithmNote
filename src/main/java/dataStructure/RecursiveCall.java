@@ -33,15 +33,26 @@ public class RecursiveCall {
         return data - 1 + combination(data - 1);
     }
 
+
+
     public Integer fibonacciRecursive(Integer data) {
-        if (data == 0) {
-            return 0;
-        } else if (data == 1) {
-            return 1;
+        if (data <= 1) {
+            return data;
         } else {
             return fibonacciRecursive(data-1) + fibonacciRecursive(data-2);
         }
     }
+    public Integer fibonacciDymanic(Integer data) {
+        int[] arr = new int[data+1];
+        arr[0] = 0;
+        arr[1] = 1;
+        for(int index=2;index<=data;index++) {
+            arr[index] = arr[index-1] + arr[index-2];
+        }
+        return arr[data];
+    }
+
+
 
     public static void main(String[] args) {
         RecursiveCall recursiveCall = new RecursiveCall();
@@ -58,5 +69,7 @@ public class RecursiveCall {
         System.out.println(recursiveCall.combination(5));
         System.out.println(recursiveCall.fibonacciRecursive(5));
         System.out.println(recursiveCall.fibonacciRecursive(6));
+        System.out.println(recursiveCall.fibonacciDymanic(5));
+        System.out.println(recursiveCall.fibonacciDymanic(6));
     }
 }
