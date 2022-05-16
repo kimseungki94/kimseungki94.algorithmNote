@@ -2,6 +2,8 @@ package dataStructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.PriorityQueue;
 
 public class BinarySearchTreeAlgorithm {
 
@@ -27,6 +29,7 @@ public class BinarySearchTreeAlgorithm {
             }
         }
 
+
     }
 
     public static void main(String[] args) {
@@ -34,9 +37,10 @@ public class BinarySearchTreeAlgorithm {
         for (int index = 0; index <= 100; index++) {
             arrayList.add((int) (Math.random() * 100));
         }
-        Collections.sort(arrayList);
+
         System.out.println(arrayList);
         BinarySearchTreeAlgorithm binarySearchTreeAlgorithm = new BinarySearchTreeAlgorithm();
         System.out.println(binarySearchTreeAlgorithm.search(arrayList, 4));
+
     }
 }
