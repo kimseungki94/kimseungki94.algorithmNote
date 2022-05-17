@@ -26,10 +26,10 @@ public class EdgeTest implements Comparable<EdgeTest> {
         Arrays.sort(edge, new Comparator<EdgeTest>() {
             @Override
             public int compare(EdgeTest e1, EdgeTest e2) {
-                return e2.distance-e1.distance;
+                return e2.distance - e1.distance;
             }
         });
-        for(int index=0;index<edge.length;index++) {
+        for (int index = 0; index < edge.length; index++) {
             System.out.println(edge[index].distance);
         }
     }
