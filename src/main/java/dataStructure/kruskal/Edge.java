@@ -1,11 +1,11 @@
-package dataStructure;
+package dataStructure.kruskal;
 
-public class KruskalEdge implements Comparable<KruskalEdge> {
+public class Edge implements Comparable<Edge> {
     Integer weight;
     String nodeV;
     String nodeU;
 
-    public KruskalEdge(Integer weight, String nodeV, String nodeU) {
+    public Edge(Integer weight, String nodeV, String nodeU) {
         this.weight = weight;
         this.nodeV = nodeV;
         this.nodeU = nodeU;
@@ -13,13 +13,13 @@ public class KruskalEdge implements Comparable<KruskalEdge> {
 
 
     @Override
-    public int compareTo(KruskalEdge e) {
+    public int compareTo(Edge e) {
         return this.weight - e.weight;
     }
 
     @Override
     public String toString() {
-        return "KruskalEdge{" +
+        return "Edge{" +
                 "weight=" + weight +
                 ", nodeV='" + nodeV + '\'' +
                 ", nodeU='" + nodeU + '\'' +
