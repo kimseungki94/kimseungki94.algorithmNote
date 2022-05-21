@@ -20,9 +20,9 @@ public class Edge implements Comparable<Edge> {
     @Override
     public String toString() {
         return "Edge{" +
-                "weight=" + weight +
-                ", nodeV='" + nodeV + '\'' +
-                ", nodeU='" + nodeU + '\'' +
+                "weight +
+                ", + nodeV + '\'' +
+                ", + nodeU + '\'' +
                 '}';
     }
 }
