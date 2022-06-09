@@ -1,9 +1,14 @@
-import java.io.*;
-import java.util.*;
+package inflearn.chap05.queue;
 
-public class Main {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class chap5_8 {
     static int N, M, count, max;
-    static Queue<Person> queue = new LinkedList<>();
+    static Queue<Main.Person> queue = new LinkedList<>();
 
     public static class Person {
         int order;
@@ -32,7 +37,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             int data = Integer.parseInt(st.nextToken());
-            queue.offer(new Person(i, data));
+            queue.offer(new Main.Person(i, data));
             max = Math.max(data, max);
         }
     }
@@ -55,7 +60,7 @@ public class Main {
 
     private static void findMax() {
         for (int i = 0; i < queue.size(); i++) {
-            Person person = queue.poll();
+            Main.Person person = queue.poll();
             max = Math.max(max, person.getDepth());
             queue.offer(person);
         }
@@ -67,3 +72,4 @@ public class Main {
         System.out.println(func());
     }
 }
+
