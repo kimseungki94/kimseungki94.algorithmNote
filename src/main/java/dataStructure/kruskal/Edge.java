@@ -16,13 +16,4 @@ public class Edge implements Comparable<Edge> {
     public int compareTo(Edge e) {
         return this.weight - e.weight;
     }
-
-    @Override
-    public String toString() {
-        return "Edge{" +
-                "weight +
-                ", + nodeV + '\'' +
-                ", + nodeU + '\'' +
-                '}';
-    }
 }

@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 public class chap5_8 {
     static int N, M, count, max;
-    static Queue<Main.Person> queue = new LinkedList<>();
+    static Queue<Person> queue = new LinkedList<>();
 
     public static class Person {
         int order;
@@ -17,14 +17,6 @@ public class chap5_8 {
         public Person(int order, int depth) {
             this.order = order;
             this.depth = depth;
-        }
-
-        public int getOrder() {
-            return order;
-        }
-
-        public int getDepth() {
-            return depth;
         }
     }
 
@@ -37,16 +29,17 @@ public class chap5_8 {
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             int data = Integer.parseInt(st.nextToken());
-            queue.offer(new Main.Person(i, data));
+            queue.offer(new Person(i,data));
             max = Math.max(data, max);
         }
     }
 
     public static int func() {
         while (!queue.isEmpty()) {
-            if (max == queue.peek().getDepth()) {
+            if (max == queue.peek().depth) {
                 count++;
-                if (queue.poll().getOrder() == M) {
+                Person p = queue.poll();
+                if (p.depth == M) {
                     return count;
                 }
                 max = 0;
@@ -60,8 +53,8 @@ public class chap5_8 {
 
     private static void findMax() {
         for (int i = 0; i < queue.size(); i++) {
-            Main.Person person = queue.poll();
-            max = Math.max(max, person.getDepth());
+            Person person = queue.poll();
+            max = Math.max(max, person.depth);
             queue.offer(person);
         }
     }
