@@ -1,8 +1,10 @@
+package inflearn.chap06.sort;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
-    static int N, M;
+public class chap6_3 {
+    static int N, M, count, max, min;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
 
@@ -10,34 +12,32 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        arr = new int[N];
         st = new StringTokenizer(br.readLine());
+        arr = new int[N];
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
     }
 
     public static void func() {
-        Arrays.sort(arr);
-        int lt, rt, mid;
-        lt = mid = 0;
-        rt = N - 1;
-        while (lt <= rt) {
-            mid = (lt + rt) / 2;
-            if (arr[mid] == M) {
-                break;
-            } else if (arr[mid] > M) {
-                rt = mid - 1;
-            } else {
-                lt = mid + 1;
+        int temp;
+        for (int i = 0; i < N; i++) {
+            for (int j = i; j > 0; j--) {
+                if (arr[j] < arr[j - 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
+                } else {
+                    break;
+                }
             }
         }
-        System.out.println(mid + 1);
+        for (int i = 0; i < N; i++) sb.append(arr[i] + " ");
     }
 
     public static void main(String[] args) throws Exception {
         input();
         func();
+        System.out.println(sb.toString());
     }
 }

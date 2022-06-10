@@ -1,7 +1,11 @@
-import java.io.*;
-import java.util.*;
+package inflearn.chap06.sort;
 
-public class Main {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class chap6_8 {
     static int N, M;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
