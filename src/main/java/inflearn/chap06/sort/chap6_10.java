@@ -1,7 +1,9 @@
+package inflearn.chap06.sort;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class chap6_10 {
     static int N, M, sum, max;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();

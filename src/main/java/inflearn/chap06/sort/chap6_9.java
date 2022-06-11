@@ -1,8 +1,10 @@
+package inflearn.chap06.sort;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
-    static int N, M, sum, max;
+public class chap6_9 {
+    static int N, M, sum;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
 
@@ -16,20 +18,19 @@ public class Main {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr);
     }
 
     public static void func() {
         int lt, rt, mid, answer;
-        lt = 1;
-        rt = arr[N - 1];
+        lt = Arrays.stream(arr).max().getAsInt();
+        rt = Arrays.stream(arr).sum();
         mid = answer = 0;
         while (lt <= rt) {
             mid = (lt + rt) / 2;
-            if (judge(mid) < M) {
+            if (judge(mid) <= M) {
+                answer=mid;
                 rt = mid - 1;
             } else {
-                answer = mid;
                 lt = mid + 1;
             }
         }
@@ -37,17 +38,17 @@ public class Main {
     }
 
     public static int judge(int data) {
-        int place = 1;
-        int left = arr[0];
-        for (int i = 1; i < N; i++) {
-            if (arr[i]-left >= data) {
-                place++;
-                left=arr[i];
+        int size = 1;
+        sum = 0;
+        for (int i = 0; i < N; i++) {
+            if (sum + arr[i] > data) {
+                size++;
+                sum = arr[i];
             } else {
-                continue;
+                sum += arr[i];
             }
         }
-        return place;
+        return size;
     }
 
     public static void main(String[] args) throws Exception {
@@ -55,3 +56,4 @@ public class Main {
         func();
     }
 }
+
