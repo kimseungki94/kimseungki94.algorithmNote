@@ -1,47 +1,39 @@
-import java.io.*;
-import java.util.*;
+package inflearn.chap07.dfs;
 
-public class Main {
+import java.io.*;
+
+public class chap7_5 {
     static int N, M, sum, max;
     static int[] arr;
     static boolean[] isSelected;
     static StringBuilder sb = new StringBuilder();
     static Node node;
-
-    public static class Node {
+    public static class Node{
         int data;
         Node lt, rt;
 
         public Node(int value) {
             data = value;
-            lt = rt = null;
+            lt=rt=null;
         }
     }
-
     public static void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = 3;
+        N = 7;
         arr = new int[N + 1];
+        isSelected = new boolean[N + 1];
         for (int i = 1; i <= N; i++) {
             arr[i] = i;
         }
     }
 
-    public static void DFS(int index, String text) {
-        if (index > N) {
+    public static void DFS(Node root) {
+        if (root == null) {
             return;
         } else {
-//            for(int i=index;i<=N;i++) {
-//                String temp = text;
-//                text+=arr[i]+" ";
-//                DFS(i+1, text);
-//                System.out.println(text);
-//                text = temp;
-//            }
-            String temp = text;
-            text += arr[index] + " ";
-            DFS(index + 1, text);
-            DFS(index + 1, temp);
+            System.out.print(root.data+" ");
+            DFS(root.lt);
+            DFS(root.rt);
         }
     }
 
@@ -54,6 +46,6 @@ public class Main {
         node.lt.rt = new Node(5);
         node.rt.lt = new Node(6);
         node.rt.rt = new Node(7);
-        DFS(1, "");
+        DFS(node);
     }
 }

@@ -1,23 +1,23 @@
-import java.io.*;
-import java.util.*;
+package inflearn.chap07.dfs;
 
-public class Main {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class chap7_6 {
     static int N, M, sum, max;
     static int[] arr;
     static boolean[] isSelected;
     static StringBuilder sb = new StringBuilder();
     static Node node;
-
-    public static class Node {
+    public static class Node{
         int data;
         Node lt, rt;
 
         public Node(int value) {
             data = value;
-            lt = rt = null;
+            lt=rt=null;
         }
     }
-
     public static void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = 3;
@@ -28,20 +28,16 @@ public class Main {
     }
 
     public static void DFS(int index, String text) {
-        if (index > N) {
+        if(index>N) {
             return;
         } else {
-//            for(int i=index;i<=N;i++) {
-//                String temp = text;
-//                text+=arr[i]+" ";
-//                DFS(i+1, text);
-//                System.out.println(text);
-//                text = temp;
-//            }
-            String temp = text;
-            text += arr[index] + " ";
-            DFS(index + 1, text);
-            DFS(index + 1, temp);
+            for(int i=index;i<=N;i++) {
+                String temp = text;
+                text+=arr[i]+" ";
+                DFS(i+1, text);
+                System.out.println(text);
+                text = temp;
+            }
         }
     }
 
@@ -57,3 +53,4 @@ public class Main {
         DFS(1, "");
     }
 }
+
