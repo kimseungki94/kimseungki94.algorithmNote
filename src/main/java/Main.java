@@ -2,58 +2,35 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N, M, sum, max;
+    static int N, M, sum, max, answer;
     static int[] arr;
     static boolean[] isSelected;
     static StringBuilder sb = new StringBuilder();
-    static Node node;
 
-    public static class Node {
-        int data;
-        Node lt, rt;
-
-        public Node(int value) {
-            data = value;
-            lt = rt = null;
-        }
-    }
 
     public static void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = 3;
-        arr = new int[N + 1];
-        for (int i = 1; i <= N; i++) {
-            arr[i] = i;
-        }
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        arr = new int[N+1];
     }
 
-    public static void DFS(int index, String text) {
-        if (index > N) {
+    public static void DFS(int count) {
+        if (count > N) {
+            for(int i=1;i<=N;i++) if(arr[i]==1) System.out.print(i+" ");
+            System.out.println();
             return;
         } else {
-//            for(int i=index;i<=N;i++) {
-//                String temp = text;
-//                text+=arr[i]+" ";
-//                DFS(i+1, text);
-//                System.out.println(text);
-//                text = temp;
-//            }
-            String temp = text;
-            text += arr[index] + " ";
-            DFS(index + 1, text);
-            DFS(index + 1, temp);
+            arr[count]=1;
+            DFS(count+1);
+            arr[count]=0;
+            DFS(count+1);
         }
     }
 
     public static void main(String[] args) throws Exception {
         input();
-        node = new Node(1);
-        node.lt = new Node(2);
-        node.rt = new Node(3);
-        node.lt.lt = new Node(4);
-        node.lt.rt = new Node(5);
-        node.rt.lt = new Node(6);
-        node.rt.rt = new Node(7);
-        DFS(1, "");
+        DFS(1);
+        for (int i = 1; i <= N; i++) System.out.print(arr[i] + " ");
     }
 }
