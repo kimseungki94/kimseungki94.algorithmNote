@@ -1,9 +1,11 @@
+package inflearn.chap07.bfs;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Main {
+public class chap7_10 {
     static int N, M, sum, max, min;
     static int[] arr;
     static boolean[] isSelected;
@@ -61,3 +63,4 @@ public class Main {
         System.out.println(BFS(node));
     }
 }
+

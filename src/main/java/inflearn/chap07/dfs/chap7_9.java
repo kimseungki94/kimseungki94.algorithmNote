@@ -1,9 +1,11 @@
+package inflearn.chap07.dfs;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Main {
+public class chap7_9 {
     static int N, M, sum, max, min;
     static int[] arr;
     static boolean[] isSelected;
@@ -32,23 +34,33 @@ public class Main {
         min = Integer.MAX_VALUE;
     }
 
-    public static int BFS(Node root) {
-        int depth = 0;
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            int len = queue.size();
-            for (int i = 0; i < len; i++) {
-                Node node = queue.poll();
-                if(node.lt==null && node.rt==null) {
-                    return depth;
-                } else {
+    public static void BFS(Node root) {
+        if (root == null) {
+            return;
+        } else {
+            queue.offer(root);
+            int L = 1;
+            while (!queue.isEmpty()) {
+                int len = queue.size();
+                System.out.print("Level" + L + " : ");
+                for (int i = 0; i < len; i++) {
+                    Node node = queue.poll();
+                    System.out.print(node.data + " ");
                     if (node.lt != null) queue.offer(node.lt);
                     if (node.rt != null) queue.offer(node.rt);
                 }
+                System.out.println();
+                L++;
             }
-            depth++;
         }
-        return depth;
+    }
+
+    public static int DFS(Node root, int depth) {
+        if (root.lt == null && root.rt == null) {
+            return depth;
+        } else {
+            return Math.min(DFS(root.lt, depth + 1), DFS(root.rt, depth + 1));
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -58,6 +70,8 @@ public class Main {
         node.rt = new Node(3);
         node.lt.lt = new Node(4);
         node.lt.rt = new Node(5);
-        System.out.println(BFS(node));
+        DFS(node, 0);
+        System.out.println(min);
+        //BFS(node);
     }
 }
