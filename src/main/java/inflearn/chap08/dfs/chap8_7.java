@@ -1,41 +1,32 @@
+package inflearn.chap08.dfs;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
-    static int N, M, count, R;
+public class chap8_7 {
+    static int N, M, count;
     static int[] arr, data, check;
     static int[][] map;
     static StringBuilder sb = new StringBuilder();
-    static boolean isSelected;
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        arr = new int[M];
+        map = new int[N + 1][M + 1];
     }
 
-    public void DFS(int count, int value) {
-        if (count == M) {
-            for (int x : arr) sb.append(x + " ");
-            sb.append("\n");
-            return;
-        } else {
-            for (int i = value + 1; i <= N; i++) {
-                arr[count] = i;
-                DFS(count + 1, i);
-            }
-        }
+    public int DFS(int n, int m) {
+        if (map[n][m] > 0) return map[n][m];
+        if (m == 0 || n == m) return map[n][m] = 1;
+        else return map[n][m] = DFS(n-1,m-1) + DFS(n-1,m);
 
     }
-
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap8_7 main = new chap8_7();
         main.input();
-        main.DFS(0, 0);
-        System.out.println(sb.toString());
+        System.out.println(main.DFS(N, M));
     }
 }

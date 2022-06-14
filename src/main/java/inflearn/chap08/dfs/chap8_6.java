@@ -1,41 +1,48 @@
+package inflearn.chap08.dfs;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
-    static int N, M, count, R;
+public class chap8_6 {
+    static int N, M, count;
     static int[] arr, data, check;
-    static int[][] map;
     static StringBuilder sb = new StringBuilder();
-    static boolean isSelected;
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
+        data = new int[N];
+        check = new int[N];
         arr = new int[M];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            data[i] = Integer.parseInt(st.nextToken());
+        }
     }
 
-    public void DFS(int count, int value) {
-        if (count == M) {
-            for (int x : arr) sb.append(x + " ");
+    public void DFS(int index) {
+        if (index == M) {
+            for (int X : arr) sb.append(X + " ");
             sb.append("\n");
             return;
-        } else {
-            for (int i = value + 1; i <= N; i++) {
-                arr[count] = i;
-                DFS(count + 1, i);
+        }
+        for (int i = 0; i < N; i++) {
+            if(check[i]==0) {
+                arr[index] = data[i];
+                check[i]=1;
+                DFS(index + 1);
+                check[i]=0;
             }
         }
-
     }
 
-
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap8_6 main = new chap8_6();
         main.input();
-        main.DFS(0, 0);
+        main.DFS(0);
         System.out.println(sb.toString());
     }
 }

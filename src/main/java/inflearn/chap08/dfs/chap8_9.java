@@ -1,8 +1,9 @@
+package inflearn.chap08.dfs;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap8_9 {
     static int N, M, count, R;
     static int[] arr, data, check;
     static int[][] map;
@@ -33,7 +34,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap8_9 main = new chap8_9();
         main.input();
         main.DFS(0, 0);
         System.out.println(sb.toString());
