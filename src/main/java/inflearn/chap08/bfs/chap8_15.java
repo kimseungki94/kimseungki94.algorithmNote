@@ -1,9 +1,11 @@
+package inflearn.chap08.bfs;
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap8_15 {
 
     public class Point {
         int row;
@@ -64,7 +66,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap8_15 main = new chap8_15();
         main.input();
         main.DFS(0, 0);
         System.out.println(min);
