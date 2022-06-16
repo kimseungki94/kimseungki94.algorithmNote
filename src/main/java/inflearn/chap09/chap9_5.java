@@ -1,9 +1,10 @@
+package inflearn.chap09;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap9_5 {
     static int N, M;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
@@ -22,10 +23,6 @@ public class Main {
         @Override
         public int compareTo(Node o) {
             return this.distance-o.distance;
-        }
-
-        public int getPoint() {
-            return point;
         }
     }
 
@@ -66,7 +63,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap9_5 main = new chap9_5();
         main.input();
         main.BFS();
         for(int i=2;i<=N;i++) {
@@ -75,3 +72,4 @@ public class Main {
         }
     }
 }
+
