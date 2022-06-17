@@ -1,27 +1,30 @@
+package inflearn.chap09;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap9_7 {
     static int N, M, sum;
     static int[] arr;
     static int[][] map;
     static StringBuilder sb = new StringBuilder();
-    static PriorityQueue<Edge> pQ = new PriorityQueue<>();
-    static ArrayList<ArrayList<Edge>> list = new ArrayList<>();
+    static ArrayList<Node> list = new ArrayList<>();
 
-    public class Edge implements Comparable<Edge> {
+    public class Node implements Comparable<Node> {
+        int point;
         int next;
         int distance;
 
-        public Edge(int next, int distance) {
+        public Node(int point, int next, int distance) {
+            this.point = point;
             this.next = next;
             this.distance = distance;
         }
 
+
         @Override
-        public int compareTo(Edge o) {
+        public int compareTo(Node o) {
             return this.distance - o.distance;
         }
     }
@@ -32,41 +35,40 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         arr = new int[N + 1];
-
-        for (int i = 0; i <= M; i++) {
-            list.add(new ArrayList<>());
-        }
-
+        for (int i = 1; i <= N; i++) arr[i] = i;
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int point = Integer.parseInt(st.nextToken());
             int next = Integer.parseInt(st.nextToken());
             int distance = Integer.parseInt(st.nextToken());
-            list.get(point).add(new Edge(next, distance));
-            list.get(next).add(new Edge(point, distance));
+            list.add(new Node(point, next, distance));
         }
+        Collections.sort(list);
     }
 
-    public void BFS() {
-        pQ.offer(new Edge(1, 0));
-        while (!pQ.isEmpty()) {
-            Edge origin = pQ.poll();
-            if(arr[origin.next]==0) {
-                arr[origin.next]=1;
-                sum+=origin.distance;
-                for(Edge edge : list.get(origin.next)) {
-                    pQ.offer(edge);
-                }
-            }
-        }
+    public int Find(int point) {
+        if (arr[point] == point) return point;
+        return arr[point] = Find(arr[point]);
+    }
+
+    public void Union(int point, int next) {
+        if (point != next) arr[point] = next;
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap9_7 main = new chap9_7();
         main.input();
-        main.BFS();
+        for (Node node : list) {
+            int point = main.Find(node.point);
+            int next = main.Find(node.next);
+            if (point != next) {
+                sum += node.distance;
+                main.Union(point, next);
+            }
+        }
         System.out.println(sum);
     }
 
 }
+
 

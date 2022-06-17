@@ -1,12 +1,12 @@
+package inflearn.chap09;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap9_8 {
     static int N, M, sum;
     static int[] arr;
-    static int[][] map;
     static StringBuilder sb = new StringBuilder();
     static PriorityQueue<Edge> pQ = new PriorityQueue<>();
     static ArrayList<ArrayList<Edge>> list = new ArrayList<>();
@@ -55,18 +55,19 @@ public class Main {
                 arr[origin.next]=1;
                 sum+=origin.distance;
                 for(Edge edge : list.get(origin.next)) {
-                    pQ.offer(edge);
+                    if(arr[edge.next]==0) pQ.offer(edge);
                 }
             }
         }
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap9_8 main = new chap9_8();
         main.input();
         main.BFS();
         System.out.println(sum);
     }
 
 }
+
 
