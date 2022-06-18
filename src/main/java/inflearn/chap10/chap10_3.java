@@ -1,9 +1,11 @@
+package inflearn.chap10;
+
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap10_3 {
     static int N, M, sum, count, max;
     static int[] arr, dy;
     static StringBuilder sb = new StringBuilder();
@@ -36,7 +38,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap10_3 main = new chap10_3();
         main.input();
         System.out.println(main.DP());
     }
