@@ -1,9 +1,10 @@
+package inflearn.chap10;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap10_1 {
     static int N, M, sum, count;
     static int[] arr, dy;
     static StringBuilder sb = new StringBuilder();
@@ -13,7 +14,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        dy = new int[N+2];
+        dy = new int[N+1];
     }
 
 
@@ -27,10 +28,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap10_1 main = new chap10_1();
         main.input();
-        System.out.println(main.DFS(N+1));
+        System.out.println(main.DFS(N));
     }
 
 }
+
 

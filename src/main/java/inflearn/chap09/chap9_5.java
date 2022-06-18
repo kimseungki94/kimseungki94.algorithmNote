@@ -48,24 +48,9 @@ public class chap9_5 {
         arr[1]=0;
     }
 
-    public void BFS() {
-        pQ.offer(new Node(1,0));
-        while (!pQ.isEmpty()) {
-            Node node = pQ.poll();
-            if(node.distance>arr[node.point]) continue;
-            for(Node nodeData : map.get(node.point)) {
-                if(arr[nodeData.point]>arr[node.point]+nodeData.distance){
-                    arr[nodeData.point]=arr[node.point]+nodeData.distance;
-                    pQ.offer(new Node(nodeData.point, node.distance+nodeData.distance));
-                }
-            }
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         chap9_5 main = new chap9_5();
         main.input();
-        main.BFS();
         for(int i=2;i<=N;i++) {
             if(arr[i]==Integer.MAX_VALUE) System.out.println(i+" : impossible");
             else System.out.println(i+" : " + arr[i]);
