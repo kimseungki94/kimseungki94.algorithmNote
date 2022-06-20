@@ -16,10 +16,9 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         String text = st.nextToken();
         text = text.replace('#','1').replace('*','0');
-        while (text.length()>0) {
+        for(int i=0;i<N;i++) {
             String temp = text.substring(0,7);
-            if(!text.contains("1") || !temp.contains("0")) break;
-            else text = text.substring(7);
+            text = text.substring(7);
             System.out.print((char)Integer.parseInt(temp,2));
         }
     }
