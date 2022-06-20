@@ -1,10 +1,10 @@
+package inflearn.chap01;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class chap1_12 {
     static int N;
     static String answer;
     static StringBuilder sb = new StringBuilder();
@@ -25,8 +25,9 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap1_12 main = new chap1_12();
         main.input();
     }
 }
+
 
