@@ -1,67 +1,60 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    static HashMap<Character, Integer> hash = new HashMap<>();
-    static HashMap<Character, Integer> memory = new HashMap<>();
-    static int[] arr;
-    static int N, M, count, answer;
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
-    static TreeSet<Integer> treeSet = new TreeSet<>(Collections.reverseOrder());
+    static Queue<Person> queue = new LinkedList<>();
+
+    public class Person {
+        int order;
+        int danger;
+
+        public Person(int order, int danger) {
+            this.order = order;
+            this.danger = danger;
+        }
+    }
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        arr = new int[N];
         M = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        for(int i=0;i<N;i++) {
+            int value = Integer.parseInt(st.nextToken());
+            queue.offer(new Person(i,value));
+            max = Math.max(max, value);
         }
     }
 
-    public void Solution() {
-        for (int i = 0; i < N; i++) {
-            for (int j = i + 1; j < N; j++) {
-                for (int k = j + 1; k < N; k++) {
-                    int sum = arr[i] + arr[j] + arr[k];
-                    treeSet.add(sum);
-                    count++;
+    public int Solution() {
+        while (!queue.isEmpty()) {
+            Person person = queue.poll();
+            if(person.danger<max) {
+                queue.offer(person);
+            } else {
+                count++;
+                max=0;
+                if(person.order==M) return count;
+                for(Person p : queue) {
+                    max = Math.max(max, p.danger);
                 }
             }
         }
-        System.out.println(count);
-        count = 0;
-        answer = -1;
-        int index = 1;
-        for (int value : treeSet) {
-            if (index == M) {
-                answer = value;
-            }
-            index++;
-        }
+        return count;
     }
 
-    public void DFS(int index, int limit, int value) {
-        if (limit == M) {
-            treeSet.add(value);
-        } else {
-            count++;
-            if(index<N) {
-                DFS(index + 1, limit + 1, value + arr[index]);
-                DFS(index + 1, limit, value);
-            }
-        }
-    }
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.input();
-        main.Solution();
-        main.DFS(0, 0, 0);
-        System.out.println(count);
-        System.out.println(answer);
+        System.out.println(main.Solution());
     }
 }
+

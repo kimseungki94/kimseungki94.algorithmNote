@@ -7,62 +7,58 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class chap5_8 {
+    static int[] arr, select;
+    static int[][] map;
     static int N, M, count, max;
+    static String text, answer;
+    static StringBuilder sb = new StringBuilder();
     static Queue<Person> queue = new LinkedList<>();
 
-    public static class Person {
+    public class Person {
         int order;
-        int depth;
+        int danger;
 
-        public Person(int order, int depth) {
+        public Person(int order, int danger) {
             this.order = order;
-            this.depth = depth;
+            this.danger = danger;
         }
     }
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        max = 0;
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            int data = Integer.parseInt(st.nextToken());
-            queue.offer(new Person(i,data));
-            max = Math.max(data, max);
+        for(int i=0;i<N;i++) {
+            int value = Integer.parseInt(st.nextToken());
+            queue.offer(new Person(i,value));
+            max = Math.max(max, value);
         }
     }
 
-    public static int func() {
+    public int Solution() {
         while (!queue.isEmpty()) {
-            if (max == queue.peek().depth) {
-                count++;
-                Person p = queue.poll();
-                if (p.depth == M) {
-                    return count;
-                }
-                max = 0;
-                findMax();
+            Person person = queue.poll();
+            if(person.danger<max) {
+                queue.offer(person);
             } else {
-                queue.offer(queue.poll());
+                count++;
+                max=0;
+                if(person.order==M) return count;
+                for(Person p : queue) {
+                    max = Math.max(max, p.danger);
+                }
             }
         }
         return count;
     }
 
-    private static void findMax() {
-        for (int i = 0; i < queue.size(); i++) {
-            Person person = queue.poll();
-            max = Math.max(max, person.depth);
-            queue.offer(person);
-        }
-    }
-
 
     public static void main(String[] args) throws Exception {
-        input();
-        System.out.println(func());
+        chap5_8 main = new chap5_8();
+        main.input();
+        System.out.println(main.Solution());
     }
 }
 
