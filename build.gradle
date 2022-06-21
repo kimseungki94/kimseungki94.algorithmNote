@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.fastcampusAlgorithmHub'
+group 'org.algorithmNote'
 version '1.0-SNAPSHOT'
 
 repositories {

@@ -1,8 +1,10 @@
+package inflearn.chap04;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap4_5 {
     static HashMap<Character, Integer> hash = new HashMap<>();
     static HashMap<Character, Integer> memory = new HashMap<>();
     static int[] arr;
@@ -57,7 +59,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap4_5 main = new chap4_5();
         main.input();
         main.Solution();
         main.DFS(0, 0, 0);
@@ -65,3 +67,4 @@ public class Main {
         System.out.println(answer);
     }
 }
+
