@@ -32,27 +32,22 @@ public class Main {
         int temp=0;
         while (lt <= rt) {
             mid = (lt + rt) / 2;
-            System.out.println(lt + " " + rt+" "+count(mid));
             int size = count(mid);
             if (size >= M) {
+                temp=mid;
                 lt = mid + 1;
             } else if (size < M) {
-                temp=mid;
                 rt = mid - 1;
             }
         }
-        System.out.println(count(3));
-        System.out.println(temp);
-        return mid+1;
+        return temp;
     }
 
     public int count(int m) {
         int lt=0;
         int horse=1;
-        System.out.println("---");
         for(int rt = 0;rt<N;rt++) {
-            System.out.println();
-            if(rt-lt>=m) {
+            if(arr[rt]-arr[lt]>=m) {
                 lt=rt;
                 horse++;
             }
