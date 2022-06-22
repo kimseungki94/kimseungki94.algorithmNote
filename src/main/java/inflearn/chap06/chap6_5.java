@@ -1,50 +1,41 @@
 package inflearn.chap06;
 
+
 import java.io.*;
 import java.util.*;
 
 public class chap6_5 {
-    static int N, M, count, max, min;
-    static int[] arr, memory;
-    static String text="U";
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine());
         arr = new int[N];
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(arr);
     }
 
-    public static void func() {
-        for (int i = 1; i < N; i++) {
-            int index = arr[i];
-            boolean isSelected = false;
-            int j;
-            for (j = i - 1; j >= 0; j--) {
-                if (index < arr[j]) {
-                    arr[j + 1] = arr[j];
-                } else if (index == arr[j]) {
-                    isSelected=true;
-                } else {
-                    break;
-                }
-            }
-            if(isSelected) {
-                text="D";
-                break;
-            }
-            arr[j + 1] = index;
+    public String Solution() {
+        answer = "U";
+        for (int i = 0; i < N-1; i++) {
+            if(arr[i]==arr[i+1]) return "D";
         }
+        return answer;
     }
 
     public static void main(String[] args) throws Exception {
-        input();
-        func();
-        System.out.println(text);
+        chap6_5 main = new chap6_5();
+        main.input();
+        System.out.println(main.Solution());
+        System.out.println(Arrays.toString(arr));
     }
 }
+

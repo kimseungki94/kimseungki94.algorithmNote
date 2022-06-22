@@ -1,14 +1,19 @@
 package inflearn.chap06;
 
+
 import java.io.*;
 import java.util.*;
 
 public class chap6_9 {
-    static int N, M, sum;
-    static int[] arr;
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static int a, b;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
+    static ArrayList<Integer> list = new ArrayList<>();
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
@@ -20,40 +25,39 @@ public class chap6_9 {
         }
     }
 
-    public static void func() {
-        int lt, rt, mid, answer;
-        lt = Arrays.stream(arr).max().getAsInt();
-        rt = Arrays.stream(arr).sum();
-        mid = answer = 0;
+    public int Solution() {
+        int lt = Arrays.stream(arr).max().getAsInt();
+        int rt = Arrays.stream(arr).sum();
+        int mid = 0;
         while (lt <= rt) {
             mid = (lt + rt) / 2;
-            if (judge(mid) <= M) {
-                answer=mid;
-                rt = mid - 1;
-            } else {
+            int size = count(mid);
+            if (size > M) {
                 lt = mid + 1;
+            } else if (size <= M) {
+                rt = mid - 1;
             }
         }
-        System.out.println(answer);
+        return mid+1;
     }
 
-    public static int judge(int data) {
+    public int count(int m) {
+        int sum = 0;
         int size = 1;
-        sum = 0;
         for (int i = 0; i < N; i++) {
-            if (sum + arr[i] > data) {
-                size++;
+            sum += arr[i];
+            if (sum > m) {
                 sum = arr[i];
-            } else {
-                sum += arr[i];
+                size++;
             }
         }
         return size;
     }
 
     public static void main(String[] args) throws Exception {
-        input();
-        func();
+        chap6_9 main = new chap6_9();
+        main.input();
+        System.out.println(main.Solution());
     }
 }
 

@@ -1,16 +1,18 @@
 package inflearn.chap06;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class chap6_8 {
-    static int N, M;
-    static int[] arr;
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static int a, b;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
+    static ArrayList<Integer> list = new ArrayList<>();
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
@@ -20,28 +22,29 @@ public class chap6_8 {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(arr);
     }
 
-    public static void func() {
-        Arrays.sort(arr);
-        int lt, rt, mid;
-        lt = mid = 0;
-        rt = N - 1;
-        while (lt <= rt) {
-            mid = (lt + rt) / 2;
-            if (arr[mid] == M) {
-                break;
-            } else if (arr[mid] > M) {
-                rt = mid - 1;
+    public int Solution() {
+        int lt,rt,mid;
+        lt=0;
+        rt=N-1;
+        while (lt<=rt){
+            mid=(rt+lt)/2;
+            if(arr[mid]==M) return mid+1;
+            if(arr[mid]>M){
+                rt=mid-1;
             } else {
-                lt = mid + 1;
+                lt=mid+1;
             }
         }
-        System.out.println(mid + 1);
+        return count;
     }
 
     public static void main(String[] args) throws Exception {
-        input();
-        func();
+        chap6_8 main = new chap6_8();
+        main.input();
+        System.out.println(main.Solution());
     }
 }
+

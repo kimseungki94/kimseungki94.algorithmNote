@@ -1,48 +1,45 @@
 package inflearn.chap06;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class chap6_6 {
-    static int N, M, count, max, min;
-    static int[] arr, memory;
-    static String text = "U";
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static int a, b;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
+    static ArrayList<Integer> list = new ArrayList<>();
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine());
         arr = new int[N];
+        select = new int[N];
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            int data = Integer.parseInt(st.nextToken());
-            arr[i] = data;
+            int value = Integer.parseInt(st.nextToken());
+            arr[i]=value;
+            select[i]=value;
         }
-        memory = arr.clone();
+        Arrays.sort(select);
     }
 
-    public static void func() {
-        int a, b;
-        a = b = -1;
-        Arrays.sort(arr);
-        for (int i = 0; i < N; i++) {
-            if (arr[i] != memory[i]) {
-                if (a > 0) {
-                    b = i + 1;
-                } else {
-                    a = i + 1;
-                }
+    public void Solution() {
+        for(int i=0;i<N;i++) {
+            if(arr[i]!=select[i]){
+                sb.append(i+1+" ");
             }
         }
-        System.out.println(a + " " + b);
     }
 
     public static void main(String[] args) throws Exception {
-        input();
-        func();
+        chap6_6 main = new chap6_6();
+        main.input();
+        main.Solution();
+        System.out.println(sb.toString());
     }
 }
 

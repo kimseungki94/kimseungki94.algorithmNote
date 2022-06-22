@@ -1,56 +1,67 @@
 package inflearn.chap06;
+
 import java.io.*;
 import java.util.*;
 
 public class chap6_4 {
-    static int N, M, count, max, min;
-    static int[] arr, memory;
+    static int[] arr, select;
+    static int[][] map;
+    static int N, M, count, max;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
 
-    public static void input() throws Exception {
+    public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        memory = new int[N];
+        arr = new int[N];
+        select = new int[M];
         st = new StringTokenizer(br.readLine());
-        arr = new int[M];
         for (int i = 0; i < M; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            select[i] = Integer.parseInt(st.nextToken());
         }
+
     }
 
-    public static void func() {
+    public void Solution() {
         for (int i = 0; i < M; i++) {
-            insert(arr[i]);
-            System.out.println(Arrays.toString(memory));
+            int index = find(select[i]);
+            if(index<0) {
+                cacheMiss();
+            } else {
+                cacheHit(index);
+            }
+            arr[0]=select[i];
+            System.out.println(Arrays.toString(arr));
         }
-        for (int i = 0; i < N; i++) sb.append(memory[i] + " ");
     }
-
-    public static void insert(int data) {
+    public int find(int value) {
         int index = -1;
-        for (int i = 0; i < N; i++) {
-            if (memory[i] == data) {
-                index = i;
+        for(int i=0;i<N;i++) {
+            if(arr[i]==value) {
+                return i;
             }
         }
-        if (index<0) {
-            for (int i = index; i > 0; i--) {
-                memory[i] = memory[i - 1];
-            }
-        } else {
-            for (int i = N - 1; i > 0; i--) {
-                memory[i] = memory[i-1];
-            }
-        }
-        memory[0]=data;
+        return index;
     }
+    public void cacheMiss() {
+        for(int i=N-1;i>0;i--) {
+            arr[i]=arr[i-1];
+        }
+    }
+    public void cacheHit(int index) {
+        for(int i=index;i>0;i--) {
+            arr[i]=arr[i-1];
+        }
+    }
+
 
     public static void main(String[] args) throws Exception {
-        input();
-        func();
-        System.out.println(sb.toString());
+        chap6_4 main = new chap6_4();
+        main.input();
+        main.Solution();
+        System.out.println(Arrays.toString(arr));
     }
 }
 
