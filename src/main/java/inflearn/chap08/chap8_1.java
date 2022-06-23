@@ -1,51 +1,52 @@
 package inflearn.chap08;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class chap8_1 {
-    static int N, M, sum;
-    static String answer;
-    static ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-    static int[] arr, check;
+    static int[] arr, select;
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static String text, answer;
+    static StringBuilder sb = new StringBuilder();
+
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        arr = new int[N + 1];
-        check = new int[N + 1];
-        sum = 0;
+        arr = new int[N];
+        select = new int[N];
         st = new StringTokenizer(br.readLine());
-        for (int i = 1; i <= N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-            sum += arr[i];
+        for (int i = 0; i < N; i++) {
+            arr[i]=Integer.parseInt(st.nextToken());
         }
-        answer="NO";
     }
 
-    public void DFS(int index) {
-        if (index == N + 1) {
-            int value=0;
-            for(int i=1;i<=N;i++) if(check[i]==1) value+=arr[i];
-            if(value==sum-value) {
-                answer="YES";
+    public void Solution() {
+        sum = Arrays.stream(arr).sum();
+        answer="NO";
+        DFS(0,0);
+    }
+    public void DFS(int index,int value) {
+        if(answer.equals("YES")) return;
+
+        if(index==N) {
+            int data = sum-value;
+            if(data==value) {
+                answer= "YES";
             }
         } else {
-            for (int i = index; i <= N; i++) {
-                check[i] = 1;
-                DFS(i + 1);
-                check[i] = 0;
-            }
+            DFS(index+1,value+arr[index]);
+            DFS(index+1,value);
         }
     }
 
     public static void main(String[] args) throws Exception {
         chap8_1 main = new chap8_1();
         main.input();
-        main.DFS(arr[1]);
+        main.Solution();
         System.out.println(answer);
     }
 }
+
+

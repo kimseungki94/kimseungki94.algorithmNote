@@ -1,48 +1,50 @@
 package inflearn.chap08;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class chap8_6 {
-    static int N, M, count;
-    static int[] arr, data, check;
+    static int[] arr, select;
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
+
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        data = new int[N];
-        check = new int[N];
-        arr = new int[M];
+        arr = new int[N];
+        select = new int[M];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            data[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
     }
 
-    public void DFS(int index) {
-        if (index == M) {
-            for (int X : arr) sb.append(X + " ");
-            sb.append("\n");
+    public void Solution() {
+        DFS(0);
+    }
+
+    public void DFS(int count) {
+        if (count == M) {
+            for(int i : select) System.out.print(i+" ");
+            System.out.println();
             return;
         }
         for (int i = 0; i < N; i++) {
-            if(check[i]==0) {
-                arr[index] = data[i];
-                check[i]=1;
-                DFS(index + 1);
-                check[i]=0;
-            }
+            if(count>0 && arr[i]==select[count-1]) continue;
+            select[count]=arr[i];
+            DFS(count+1);
         }
     }
 
     public static void main(String[] args) throws Exception {
         chap8_6 main = new chap8_6();
         main.input();
-        main.DFS(0);
-        System.out.println(sb.toString());
+        main.Solution();
     }
 }
+
+

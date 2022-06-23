@@ -1,73 +1,75 @@
 package inflearn.chap08;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class chap8_11 {
-    public class Point {
+    static int[] arr, select;
+    static int[][] map, visit;
+    static int[] dy= new int[]{-1,1,0,0};
+    static int[] dx= new int[]{0,0,-1,1};
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static boolean flag;
+    static String text, answer;
+    static StringBuilder sb = new StringBuilder();
+    static Queue<Node> queue = new LinkedList<>();
+
+    public class Node {
         int row;
         int col;
 
-        public Point(int row, int col) {
+        public Node(int row, int col) {
             this.row = row;
             this.col = col;
         }
     }
 
-    static int count;
-    static int[][] map;
-    static int[] dy = new int[]{-1, 1, 0, 0};
-    static int[] dx = new int[]{0, 0, -1, 1};
-    static StringBuilder sb = new StringBuilder();
-    static Queue<Point> queue = new LinkedList<>();
-    static boolean flag =true;
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        map = new int[7][7];
-        for (int i = 0; i < 7; i++) {
+        map = new int[8][8];
+        visit = new int[8][8];
+        for(int i=1;i<=7;i++) {
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < 7; j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
+            for(int j=1;j<=7;j++) {
+                map[i][j]=Integer.parseInt(st.nextToken());
             }
         }
-        map[0][0]=1;
-        count = 1;
     }
 
-    public int BFS(int row, int col) {
-        queue.offer(new Point(row, col));
+    public void Solution() {
+        map[1][1]=1;
+        System.out.println(BFS());
+    }
+
+    private int BFS() {
+        queue.offer(new Node(1,1));
         while (!queue.isEmpty()) {
+            count++;
             int len = queue.size();
-            for (int i = 0; i < len; i++) {
-                Point position = queue.poll();
-                for (int j = 0; j < 4; j++) {
-                    int y = position.row + dy[j];
-                    int x = position.col + dx[j];
-                    if (y == 6 && x == 6) {
-                        flag = false;
-                        return count;
-                    }
-                    if (x >= 0 && x < 7 && y >= 0 && y < 7 && map[y][x] == 0) {
-                        map[y][x]=1;
-                        queue.offer(new Point(y, x));
+            for(int i=0;i<len;i++) {
+                Node node = queue.poll();
+                for(int j=0;j<4;j++) {
+                    int row = node.row+dy[j];
+                    int col = node.col+dx[j];
+                    if(row>0 && row<=7 && col>0 && col<=7 && map[row][col]==0 && visit[row][col]==0) {
+                        if(row==7 && col==7) return count;
+                        visit[row][col]=1;
+                        queue.offer(new Node(row,col));
                     }
                 }
             }
-            count++;
         }
-        return count;
+        return -1;
     }
+
 
     public static void main(String[] args) throws Exception {
         chap8_11 main = new chap8_11();
         main.input();
-        main.BFS(0, 0);
-        if(flag) {
-            System.out.println(-1);
-        } else {
-            System.out.println(count);
-        }
+        main.Solution();
     }
 }
+
+

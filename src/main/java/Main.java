@@ -1,62 +1,73 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    static int[] arr, select;
-    static int N, M, count, max, min;
-    static int a, b;
-    static String text, answer;
-    static StringBuilder sb = new StringBuilder();
-    static ArrayList<ArrayList<Integer>> map = new ArrayList<>();
-    static Queue<Integer> queue = new LinkedList<>();
 
+    public class Position {
+        int row;
+        int col;
+
+        public Position(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+
+    static int N, M, count, max, len, min;
+    static int[][] map, dis;
+    static int[] arr;
+    static StringBuilder sb = new StringBuilder();
+    static Queue<Position> queue = new LinkedList<>();
+    static ArrayList<Position> house = new ArrayList<>();
+    static ArrayList<Position> pizza = new ArrayList<>();
+    static boolean flag = true;
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        select = new int[N + 1];
-        arr = new int[N + 1];
-        for (int i = 0; i <= N; i++) {
-            map.add(new ArrayList<>());
-        }
-        for (int i = 0; i < M; i++) {
+        map = new int[N][N];
+        arr = new int[N];
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            map.get(start).add(end);
-        }
-        arr[1] = 0;
-        select[1] = 1;
-    }
-
-    public void Solution() {
-        BFS();
-    }
-
-    private void BFS() {
-        queue.offer(1);
-        while (!queue.isEmpty()) {
-            int start = queue.poll();
-            for (int end : map.get(start)) {
-                if (select[end] == 0) {
-                    arr[end] = arr[start] + 1;
-                    queue.offer(end);
-                    select[end]=1;
-                }
+            for (int j = 0; j < N; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+                if (map[i][j] == 1) house.add(new Position(i, j));
+                if(map[i][j]==2) pizza.add(new Position(i, j));
             }
-            System.out.println(queue);
+        }
+        len = pizza.size();
+        min = Integer.MAX_VALUE;
+    }
+    public void DFS(int count, int index) {
+        if(count==M) {
+            int sum=0;
+            for(Position man : house) {
+                int distance = 0;
+                int pMin = Integer.MAX_VALUE;
+                for(int data : arr) {
+                    int pRow = pizza.get(data).row;
+                    int pCol = pizza.get(data).col;
+                    distance = Math.abs(man.row-pRow)+Math.abs(man.col-pCol);
+                    pMin = Math.min(pMin,distance);
+                }
+                sum+=pMin;
+            }
+            min= Math.min(min, sum);
+            return;
+        }
+        for(int i=index;i<len;i++) {
+            arr[count]=i;
+            DFS(count+1,i+1);
         }
     }
-
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.input();
-        main.Solution();
-        System.out.println(Arrays.toString(arr));
+        main.DFS(0,0);
+        System.out.println(min);
     }
 }
-
-

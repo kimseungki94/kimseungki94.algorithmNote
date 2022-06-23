@@ -1,46 +1,50 @@
 package inflearn.chap08;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class chap8_3 {
-    static int N, M, max;
-    static String answer;
-    static ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-    static int[] arr, check;
+    static int[] arr, select, time;
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static String text, answer;
+    static StringBuilder sb = new StringBuilder();
+
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
-        arr = new int[M];
-        check = new int[M];
-        for (int i = 0; i < M; i++) {
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[N];
+        select = new int[N];
+        time = new int[N];
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             arr[i] = Integer.parseInt(st.nextToken());
-            check[i] = Integer.parseInt(st.nextToken());
+            time[i] = Integer.parseInt(st.nextToken());
         }
-        max = 0;
     }
 
-    public void DFS(int index, int sum, int time) {
-        if (time > N) return;
-        if (index == M) {
-            max = Math.max(max, sum);
+    public void Solution() {
+        DFS(0, 0,0);
+    }
+
+    public void DFS(int index, int value, int limit) {
+        if (limit > M) return;
+        if (index==N) {
+            max = Math.max(max, value);
             return;
         }
-        DFS(index + 1, sum + arr[index], time + check[index]);
-        DFS(index + 1, sum, time);
-
+        DFS(index + 1, value + arr[index],limit+time[index]);
+        DFS(index + 1, value, limit);
     }
 
     public static void main(String[] args) throws Exception {
         chap8_3 main = new chap8_3();
         main.input();
-        main.DFS(0, 0, 0);
+        main.Solution();
         System.out.println(max);
     }
 }
+
+

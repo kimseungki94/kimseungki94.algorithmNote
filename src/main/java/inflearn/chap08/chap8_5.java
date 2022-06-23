@@ -1,12 +1,14 @@
 package inflearn.chap08;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class chap8_5 {
-    static int N, M, count;
-    static int[] arr;
-    static Queue<Integer> queue = new LinkedList<>();
+    static int[] arr, select;
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static String text, answer;
+    static StringBuilder sb = new StringBuilder();
+
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,31 +18,33 @@ public class chap8_5 {
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
-            queue.offer(arr[i]);
         }
         st = new StringTokenizer(br.readLine());
         M = Integer.parseInt(st.nextToken());
+        min = Integer.MAX_VALUE;
     }
 
-    public int BFS() {
-        while (!queue.isEmpty()) {
-            count++;
-            int len = queue.size();
-            for (int i = 0; i < len; i++) {
-                int value = queue.poll();
-                for (int X : arr) {
-                    int data = value + X;
-                    if (data == M) return count+1; // 동전의 값을 Queue에 삽입 전에 체크하기 때문에 +1를 추가해서 리턴
-                    if (data < M) queue.offer(data);
-                }
-            }
+    public void Solution() {
+        DFS(0, 0);
+    }
+
+    public void DFS(int count, int limit) {
+        if (limit > M) return;
+        if (limit == M) {
+            min = Math.min(min, count);
         }
-        return count;
+        for (int i = 0; i < N; i++) {
+            DFS(count + 1, limit + arr[i]);
+        }
     }
 
     public static void main(String[] args) throws Exception {
         chap8_5 main = new chap8_5();
         main.input();
-        System.out.println(main.BFS());
+        main.Solution();
+        System.out.println(min);
     }
 }
+
+
+

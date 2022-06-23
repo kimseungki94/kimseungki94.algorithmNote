@@ -1,14 +1,16 @@
 package inflearn.chap08;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class chap8_9 {
-    static int N, M, count, R;
-    static int[] arr, data, check;
+    static int[] arr, select;
     static int[][] map;
+    static int N, M, count, max, min, sum;
+    static int a, b;
+    static boolean flag;
+    static String text, answer;
     static StringBuilder sb = new StringBuilder();
-    static boolean isSelected;
+
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,25 +20,27 @@ public class chap8_9 {
         arr = new int[M];
     }
 
-    public void DFS(int count, int value) {
-        if (count == M) {
-            for (int x : arr) sb.append(x + " ");
-            sb.append("\n");
-            return;
-        } else {
-            for (int i = value + 1; i <= N; i++) {
-                arr[count] = i;
-                DFS(count + 1, i);
-            }
-        }
-
+    public void Solution() {
+        DFS(1,0);
     }
 
+    public void DFS(int index, int count) {
+        if(count==M) {
+            for(int n : arr) System.out.print(n+" ");
+            System.out.println();
+            return;
+        }
+        for(int i=index;i<=N;i++) {
+            arr[count]=i;
+            DFS(i+1, count+1);
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         chap8_9 main = new chap8_9();
         main.input();
-        main.DFS(0, 0);
-        System.out.println(sb.toString());
+        main.Solution();
     }
 }
+
+
