@@ -1,7 +1,9 @@
+package inflearn.chap07;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class chap7_14 {
     static int[] arr, select;
     static int N, M, count, max, min;
     static int a, b;
@@ -52,11 +54,12 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap7_14 main = new chap7_14();
         main.input();
         main.Solution();
         System.out.println(Arrays.toString(arr));
     }
 }
+
 
 
