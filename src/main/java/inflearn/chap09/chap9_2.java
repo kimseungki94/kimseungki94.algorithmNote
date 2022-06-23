@@ -4,17 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class chap9_1 {
-
-    public class Position {
-        int row;
-        int col;
-
-        public Position(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-    }
+public class chap9_2 {
 
     static int N, M, count, max, len, min;
     static int[][] map, dis;
@@ -33,7 +23,8 @@ public class chap9_1 {
 
         @Override
         public int compareTo(Person o) {
-            return o.height-this.height;
+            if(this.weight==o.weight) return this.height-o.height;
+            else return this.weight-o.weight;
         }
 
     }
@@ -45,25 +36,28 @@ public class chap9_1 {
             st = new StringTokenizer(br.readLine());
             int height = Integer.parseInt(st.nextToken());
             int weight = Integer.parseInt(st.nextToken());
+            max = Math.max(max, weight);
             list.add(new Person(height,weight));
         }
+        arr = new int[max+1];
         Collections.sort(list);
     }
 
     private void Solution() {
-        for(int i=0;i<N;i++) {
-            int weight = list.get(i).weight;
-            if(max<weight) {
-                max = weight;
+        int value = 0;
+        for(Person p : list) {
+            if(p.height>=value) {
                 count++;
+                value = p.weight;
             }
         }
         System.out.println(count);
     }
 
     public static void main(String[] args) throws Exception {
-        chap9_1 main = new chap9_1();
+        chap9_2 main = new chap9_2();
         main.input();
         main.Solution();
     }
 }
+

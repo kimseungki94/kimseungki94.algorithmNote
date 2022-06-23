@@ -4,70 +4,57 @@ import java.util.*;
 
 public class Main {
 
-    public class Position {
-        int row;
-        int col;
-
-        public Position(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-    }
-
     static int N, M, count, max, len, min;
     static int[][] map, dis;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
-    static Queue<Position> queue = new LinkedList<>();
-    static ArrayList<Position> house = new ArrayList<>();
-    static ArrayList<Position> pizza = new ArrayList<>();
-    static boolean flag = true;
+    static ArrayList<Person> list = new ArrayList<>();
 
+    public class Person implements Comparable<Person>{
+        int height;
+        int weight;
+
+        public Person(int height, int weight) {
+            this.height = height;
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(Person o) {
+            if(this.weight==o.weight) return this.height-o.height;
+            else return this.weight-o.weight;
+        }
+
+    }
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        map = new int[N][N];
-        arr = new int[N];
-        for (int i = 0; i < N; i++) {
+        for(int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < N; j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
-                if (map[i][j] == 1) house.add(new Position(i, j));
-                if(map[i][j]==2) pizza.add(new Position(i, j));
-            }
+            int height = Integer.parseInt(st.nextToken());
+            int weight = Integer.parseInt(st.nextToken());
+            max = Math.max(max, weight);
+            list.add(new Person(height,weight));
         }
-        len = pizza.size();
-        min = Integer.MAX_VALUE;
+        arr = new int[max+1];
+        Collections.sort(list);
     }
-    public void DFS(int count, int index) {
-        if(count==M) {
-            int sum=0;
-            for(Position man : house) {
-                int distance = 0;
-                int pMin = Integer.MAX_VALUE;
-                for(int data : arr) {
-                    int pRow = pizza.get(data).row;
-                    int pCol = pizza.get(data).col;
-                    distance = Math.abs(man.row-pRow)+Math.abs(man.col-pCol);
-                    pMin = Math.min(pMin,distance);
-                }
-                sum+=pMin;
+
+    private void Solution() {
+        int value = 0;
+        for(Person p : list) {
+            if(p.height>=value) {
+                count++;
+                value = p.weight;
             }
-            min= Math.min(min, sum);
-            return;
         }
-        for(int i=index;i<len;i++) {
-            arr[count]=i;
-            DFS(count+1,i+1);
-        }
+        System.out.println(count);
     }
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.input();
-        main.DFS(0,0);
-        System.out.println(min);
+        main.Solution();
     }
 }
