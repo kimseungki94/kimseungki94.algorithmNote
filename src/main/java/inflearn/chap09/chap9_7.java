@@ -5,27 +5,43 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class chap9_7 {
-    static int N, M, sum;
-    static int[] arr;
-    static int[][] map;
+
+    static int N, M, count, max, len, min;
+    static int[][] map, dis;
+    static int[] arr, distance;
     static StringBuilder sb = new StringBuilder();
     static ArrayList<Node> list = new ArrayList<>();
+    static PriorityQueue<Node> pQ = new PriorityQueue<>();
 
     public class Node implements Comparable<Node> {
-        int point;
-        int next;
-        int distance;
+        int start;
+        int end;
+        int cost;
 
-        public Node(int point, int next, int distance) {
-            this.point = point;
-            this.next = next;
-            this.distance = distance;
+        public Node(int start, int end, int cost) {
+            this.start = start;
+            this.end = end;
+            this.cost = cost;
         }
-
 
         @Override
         public int compareTo(Node o) {
-            return this.distance - o.distance;
+            return this.cost-o.cost;
+        }
+    }
+
+    public int find(int index) {
+        if (arr[index] == index) return index;
+        else {
+            return arr[index] = find(arr[index]);
+        }
+    }
+
+    public void union(int a, int b) {
+        int findA = find(a);
+        int findB = find(b);
+        if (findA != findB) {
+            arr[findA] = b;
         }
     }
 
@@ -35,40 +51,37 @@ public class chap9_7 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         arr = new int[N + 1];
-        for (int i = 1; i <= N; i++) arr[i] = i;
+        distance = new int[N + 1];
+        for (int i = 0; i <= N; i++) {
+            arr[i] = i;
+        }
+        Arrays.fill(distance, Integer.MAX_VALUE);
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int point = Integer.parseInt(st.nextToken());
-            int next = Integer.parseInt(st.nextToken());
-            int distance = Integer.parseInt(st.nextToken());
-            list.add(new Node(point, next, distance));
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+            list.add(new Node(start, end, cost));
         }
         Collections.sort(list);
     }
 
-    public int Find(int point) {
-        if (arr[point] == point) return point;
-        return arr[point] = Find(arr[point]);
-    }
-
-    public void Union(int point, int next) {
-        if (point != next) arr[point] = next;
-    }
-
-    public static void main(String[] args) throws Exception {
-        chap9_7 main = new chap9_7();
-        main.input();
-        for (Node node : list) {
-            int point = main.Find(node.point);
-            int next = main.Find(node.next);
-            if (point != next) {
-                sum += node.distance;
-                main.Union(point, next);
+    private void Solution() {
+        int sum = 0;
+        for(Node node : list) {
+            int start = find(node.start);
+            int end = find(node.end);
+            if(start!=end) {
+                sum+=node.cost;
+                union(start,end);
             }
         }
         System.out.println(sum);
     }
 
+    public static void main(String[] args) throws Exception {
+        chap9_7 main = new chap9_7();
+        main.input();
+        main.Solution();
+    }
 }
-
-

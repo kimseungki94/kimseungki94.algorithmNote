@@ -5,61 +5,59 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class chap9_6 {
-    static int N, M;
+
+    static int N, M, count, max, len, min;
+    static int[][] map, dis;
     static int[] arr;
-    static int[][] map;
     static StringBuilder sb = new StringBuilder();
-    static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-    static PriorityQueue<Integer> pQ = new PriorityQueue<>();
-    static int[] friendShip;
+
+    public int find(int index) {
+        if(arr[index]==index) return index;
+        else {
+            return arr[index]=find(arr[index]);
+        }
+    }
+
+    public void union(int a,int b) {
+        int findA = find(a);
+        int findB = find(b);
+        if(findA!=findB) {
+            arr[findA]=b;
+        };
+    }
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        arr = new int[N + 1];
-        friendShip = new int[N+1];
-        for(int i=1;i<=N;i++) friendShip[i]=i;
-        int me;
-        int you;
-        for (int i = 0; i <= N; i++) {
-            list.add(new ArrayList<>());
+        arr = new int[N+1];
+        for(int i=1;i<=N;i++) {
+            arr[i]=i;
         }
-        for (int i = 0; i < M; i++) {
+        for(int i=0;i<M;i++) {
             st = new StringTokenizer(br.readLine());
-            me = Integer.parseInt(st.nextToken());
-            you = Integer.parseInt(st.nextToken());
-            Union(me,you);
-            System.out.println(Arrays.toString(friendShip));
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            if(start<end){
+                union(start, end);
+            } else {
+                union(end,start);
+            }
         }
         st = new StringTokenizer(br.readLine());
-        me = Integer.parseInt(st.nextToken());
-        you = Integer.parseInt(st.nextToken());
-        if(Find(me)==Find(you)) {
-            System.out.println("YES");
-        } else {
-            System.out.println("NO");
-        }
+        int start = find(Integer.parseInt(st.nextToken()));
+        int end = find(Integer.parseInt(st.nextToken()));
+        if(start!=end) System.out.println("NO");
+        else System.out.println("YES");
     }
 
-    public int Find(int me) {
-        if(friendShip[me]==me) return me;
-        return friendShip[me]=Find(friendShip[me]);
-    }
-
-    public void Union(int a, int b) {
-        int me = Find(a);
-        int you = Find(b);
-        if(friendShip[me]!=friendShip[you]) friendShip[me] = you;
+    private void Solution() {
     }
 
     public static void main(String[] args) throws Exception {
         chap9_6 main = new chap9_6();
         main.input();
-
+        main.Solution();
     }
-
 }
-
-

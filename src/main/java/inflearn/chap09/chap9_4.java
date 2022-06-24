@@ -4,29 +4,28 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class chap9_3 {
+public class chap9_4 {
 
     static int N, M, count, max, len, min;
     static int[][] map, dis;
     static int[] arr;
     static StringBuilder sb = new StringBuilder();
     static ArrayList<Person> list = new ArrayList<>();
-
+    static PriorityQueue<Integer> pQ = new PriorityQueue<>(Collections.reverseOrder());
     public class Person implements Comparable<Person>{
-        int time;
-        char kind;
+        int pay;
+        int day;
 
-        public Person(int time, char kind) {
-            this.time = time;
-            this.kind = kind;
+        public Person(int pay, int day) {
+            this.pay = pay;
+            this.day = day;
         }
+
 
         @Override
         public int compareTo(Person o) {
-            if(this.time==o.time) return this.kind-o.kind;
-            else return this.time-o.time;
+            return o.day-this.day;
         }
-
     }
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,27 +33,29 @@ public class chap9_3 {
         N = Integer.parseInt(st.nextToken());
         for(int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
-            list.add(new Person(start,'S'));
-            list.add(new Person(end,'E'));
+            int pay = Integer.parseInt(st.nextToken());
+            int day = Integer.parseInt(st.nextToken());
+            list.add(new Person(pay,day));
+            max = Math.max(day,max);
         }
         Collections.sort(list);
     }
 
     private void Solution() {
-        for(Person p : list) {
-            if(p.kind=='S'){
-                count++;
-            } else {
-                count--;
+        int sum=0;
+        int j=0;
+        for(int i=max;i>=1;i--) {
+            for(;j<list.size();j++) {
+                if(list.get(j).day!=i) break;
+                pQ.offer(list.get(j).pay);
             }
-            max = Math.max(max,count);
+            if(!pQ.isEmpty()) sum+=pQ.poll();
         }
+        System.out.println(sum);
     }
 
     public static void main(String[] args) throws Exception {
-        chap9_3 main = new chap9_3();
+        chap9_4 main = new chap9_4();
         main.input();
         main.Solution();
         System.out.println(max);

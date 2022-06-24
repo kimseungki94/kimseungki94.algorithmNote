@@ -6,50 +6,82 @@ public class Main {
 
     static int N, M, count, max, len, min;
     static int[][] map, dis;
-    static int[] arr;
+    static int[] arr, distance;
     static StringBuilder sb = new StringBuilder();
-    static ArrayList<Person> list = new ArrayList<>();
+    static ArrayList<ArrayList<Node>> list = new ArrayList<>();
+    static PriorityQueue<Node> pQ = new PriorityQueue<>();
 
-    public class Person implements Comparable<Person>{
-        int height;
-        int weight;
+    public class Node implements Comparable<Node> {
+        int end;
+        int cost;
 
-        public Person(int height, int weight) {
-            this.height = height;
-            this.weight = weight;
+        public Node(int end, int cost) {
+            this.end = end;
+            this.cost = cost;
         }
 
         @Override
-        public int compareTo(Person o) {
-            if(this.weight==o.weight) return this.height-o.height;
-            else return this.weight-o.weight;
+        public int compareTo(Node o) {
+            return this.cost - o.cost;
         }
-
     }
+
+    public int find(int index) {
+        if (arr[index] == index) return index;
+        else {
+            return arr[index] = find(arr[index]);
+        }
+    }
+
+    public void union(int a, int b) {
+        int findA = find(a);
+        int findB = find(b);
+        if (findA != findB) {
+            arr[findA] = b;
+        }
+    }
+
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        for(int i=0;i<N;i++) {
-            st = new StringTokenizer(br.readLine());
-            int height = Integer.parseInt(st.nextToken());
-            int weight = Integer.parseInt(st.nextToken());
-            max = Math.max(max, weight);
-            list.add(new Person(height,weight));
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[N + 1];
+        for (int i = 0; i <= N; i++) {
+            list.add(new ArrayList<>());
         }
-        arr = new int[max+1];
-        Collections.sort(list);
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+            list.get(start).add(new Node(end, cost));
+            list.get(end).add(new Node(start, cost));
+        }
     }
 
     private void Solution() {
-        int value = 0;
-        for(Person p : list) {
-            if(p.height>=value) {
-                count++;
-                value = p.weight;
+        pQ.offer(new Node(1, 0));
+        int sum = 0;
+        while (!pQ.isEmpty()) {
+            Node startNode = pQ.poll();
+            int originPoint = startNode.end;
+            if (arr[originPoint] == 0) {
+                arr[originPoint] = 1;
+                sum+=startNode.cost;
+                for (Node node : list.get(originPoint)) {
+                    int endPoint = node.end;
+                    int endCost = node.cost;
+                    if(arr[endPoint]==0) pQ.offer(new Node(endPoint, endCost));
+                }
             }
+
+            for (Node node : pQ) {
+                System.out.println(node.end + " " + node.cost);
+            }
+            System.out.println();
         }
-        System.out.println(count);
+        System.out.println(sum);
     }
 
     public static void main(String[] args) throws Exception {

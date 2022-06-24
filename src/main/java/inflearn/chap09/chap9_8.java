@@ -5,24 +5,41 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class chap9_8 {
-    static int N, M, sum;
-    static int[] arr;
+
+    static int N, M, count, max, len, min;
+    static int[][] map, dis;
+    static int[] arr, distance;
     static StringBuilder sb = new StringBuilder();
-    static PriorityQueue<Edge> pQ = new PriorityQueue<>();
-    static ArrayList<ArrayList<Edge>> list = new ArrayList<>();
+    static ArrayList<ArrayList<Node>> list = new ArrayList<>();
+    static PriorityQueue<Node> pQ = new PriorityQueue<>();
 
-    public class Edge implements Comparable<Edge> {
-        int next;
-        int distance;
+    public class Node implements Comparable<Node> {
+        int end;
+        int cost;
 
-        public Edge(int next, int distance) {
-            this.next = next;
-            this.distance = distance;
+        public Node(int end, int cost) {
+            this.end = end;
+            this.cost = cost;
         }
 
         @Override
-        public int compareTo(Edge o) {
-            return this.distance - o.distance;
+        public int compareTo(Node o) {
+            return this.cost - o.cost;
+        }
+    }
+
+    public int find(int index) {
+        if (arr[index] == index) return index;
+        else {
+            return arr[index] = find(arr[index]);
+        }
+    }
+
+    public void union(int a, int b) {
+        int findA = find(a);
+        int findB = find(b);
+        if (findA != findB) {
+            arr[findA] = b;
         }
     }
 
@@ -32,42 +49,46 @@ public class chap9_8 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         arr = new int[N + 1];
-
-        for (int i = 0; i <= M; i++) {
+        for (int i = 0; i <= N; i++) {
             list.add(new ArrayList<>());
         }
-
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int point = Integer.parseInt(st.nextToken());
-            int next = Integer.parseInt(st.nextToken());
-            int distance = Integer.parseInt(st.nextToken());
-            list.get(point).add(new Edge(next, distance));
-            list.get(next).add(new Edge(point, distance));
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+            list.get(start).add(new Node(end, cost));
+            list.get(end).add(new Node(start, cost));
         }
     }
 
-    public void BFS() {
-        pQ.offer(new Edge(1, 0));
+    private void Solution() {
+        pQ.offer(new Node(1, 0));
+        int sum = 0;
         while (!pQ.isEmpty()) {
-            Edge origin = pQ.poll();
-            if(arr[origin.next]==0) {
-                arr[origin.next]=1;
-                sum+=origin.distance;
-                for(Edge edge : list.get(origin.next)) {
-                    if(arr[edge.next]==0) pQ.offer(edge);
+            Node startNode = pQ.poll();
+            int originPoint = startNode.end;
+            if (arr[originPoint] == 0) {
+                arr[originPoint] = 1;
+                sum+=startNode.cost;
+                for (Node node : list.get(originPoint)) {
+                    int endPoint = node.end;
+                    int endCost = node.cost;
+                    if(arr[endPoint]==0) pQ.offer(new Node(endPoint, endCost));
                 }
             }
+
+            for (Node node : pQ) {
+                System.out.println(node.end + " " + node.cost);
+            }
+            System.out.println();
         }
+        System.out.println(sum);
     }
 
     public static void main(String[] args) throws Exception {
         chap9_8 main = new chap9_8();
         main.input();
-        main.BFS();
-        System.out.println(sum);
+        main.Solution();
     }
-
 }
-
-
