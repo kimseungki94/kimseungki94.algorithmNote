@@ -1,8 +1,10 @@
+package inflearn.chap10;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class chap10_6 {
 
     static int N, M, count, max, len, min;
     static int[][] map, dis;
@@ -59,7 +61,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap10_6 main = new chap10_6();
         main.input();
         main.Solution();
     }
