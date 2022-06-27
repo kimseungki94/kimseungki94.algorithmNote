@@ -1,68 +1,51 @@
 package inflearn.chap10;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
 public class chap10_6 {
 
-    static int N, M, count, max, len, min;
-    static int[][] map, dis;
+    static int N, M;
+    static int[] arr,dp,coin;
+    static StringBuilder sb = new StringBuilder();
 
-    public class Test implements Comparable<Test> {
+    public class Work implements Comparable<Work>{
         int score;
         int time;
 
-        public Test(int score, int time) {
+        public Work(int score, int time) {
             this.score = score;
             this.time = time;
         }
 
-
         @Override
-        public int compareTo(Test o) {
-            if (this.time == o.time) return this.score - o.score;
-            else return this.time - o.time;
+        public int compareTo(Work o) {
+            return o.time-this.time;
         }
     }
-
-    static int[] arr, dp;
-    static StringBuilder sb = new StringBuilder();
-    static ArrayList<Test> list = new ArrayList<>();
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        dp = new int[M + 1];
-        for (int i = 0; i < N; i++) {
+        ArrayList<Work> list = new ArrayList<>();
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        for(int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
-            int score = Integer.parseInt(st.nextToken());
-            int time = Integer.parseInt(st.nextToken());
-            list.add(new Test(score, time));
+            list.add(new Work(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())));
         }
-        Collections.sort(list);
-    }
-
-    private void Solution() {
-        DP();
-    }
-
-    private void DP() {
-        dp[M] = 0;
-        for (int i = 0; i < N; i++) {
-            for (int j = M; j >= list.get(i).time; j--) {
-                dp[j] = Math.max(dp[j], dp[j-list.get(i).time]+list.get(i).score);
+        dp=new int[M+1];
+        dp[0]=0;
+        for(int i=0;i<N;i++) {
+            for(int j=M;j>=list.get(i).time;j--) {
+                dp[j]=Math.max(dp[j],dp[j-list.get(i).time]+list.get(i).score);
             }
             System.out.println(Arrays.toString(dp));
         }
 
     }
-
     public static void main(String[] args) throws Exception {
         chap10_6 main = new chap10_6();
         main.input();
-        main.Solution();
     }
 }

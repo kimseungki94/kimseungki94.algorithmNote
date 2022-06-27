@@ -6,44 +6,61 @@ import java.util.*;
 
 public class chap10_4 {
 
-    static int N, M, count, max, len, min;
-    static int[][] map, dis;
-    static int[] arr, dp;
+    static int N, M;
+    static int[] arr,dp;
     static StringBuilder sb = new StringBuilder();
 
+    public class Stone implements Comparable<Stone>{
+        int s;
+        int h;
+        int w;
+
+        public Stone(int s, int h, int w) {
+            this.s = s;
+            this.h = h;
+            this.w = w;
+        }
+
+
+        @Override
+        public int compareTo(Stone o) {
+            return o.s-this.s;
+        }
+    }
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        ArrayList<Stone> list = new ArrayList<>();
         N = Integer.parseInt(st.nextToken());
         arr = new int[N];
-        st = new StringTokenizer(br.readLine());
+        dp = new int[N];
         for(int i=0;i<N;i++) {
-            arr[i]=Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int h = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+            list.add(new Stone(s,h,w));
         }
-        st = new StringTokenizer(br.readLine());
-        M = Integer.parseInt(st.nextToken());
-        dp = new int[M+1];
-        Arrays.fill(dp,Integer.MAX_VALUE);
-    }
-
-    private void Solution() {
-        DP();
-    }
-
-    private void DP() {
-        dp[0]=0;
+        Collections.sort(list);
         for(int i=0;i<N;i++) {
-            for(int j=arr[i];j<=M;j++) {
-                dp[j]=Math.min(dp[j],dp[j-arr[i]]+1);
+            dp[i]=list.get(i).h;
+        }
+        System.out.println(Arrays.toString(dp));
+        for(int i=1;i<N;i++) {
+            Stone before = list.get(i);
+            int max_h = 0;
+            for(int j=i-1;j>=0;j--) {
+                Stone after = list.get(j);
+                if(before.w<after.w && dp[j]>max_h) {
+                    max_h=Math.max(max_h,dp[j]);
+                }
+                dp[i]=Math.max(dp[i],max_h+before.h);
             }
             System.out.println(Arrays.toString(dp));
         }
-        System.out.println(dp[M]);
     }
-
     public static void main(String[] args) throws Exception {
         chap10_4 main = new chap10_4();
         main.input();
-        main.Solution();
     }
 }
