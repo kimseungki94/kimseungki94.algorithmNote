@@ -1,8 +1,10 @@
+package programmers_develop_02;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
+public class develop_02_02 {
 
     static int N, M, max;
     static int[] arr, dp;
@@ -64,7 +66,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        develop_02_02 main = new develop_02_02();
         main.input();
     }
 }
+
