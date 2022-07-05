@@ -1,12 +1,10 @@
+package eCodingTest.dfs;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-
-public class Main {
+public class chap01 {
 
     static int N, count;
     static StringBuilder sb = new StringBuilder();
@@ -40,7 +38,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main main = new Main();
+        chap01 main = new chap01();
         main.input();
         for(int i=1;i<=4;i++) {
             for(int j=1;j<=5;j++) {
@@ -53,3 +51,4 @@ public class Main {
         System.out.println(count);
     }
 }
+
