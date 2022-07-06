@@ -8,33 +8,34 @@ import static java.util.stream.Collectors.toList;
 
 public class Main {
 
-    static int N, count;
+    static int N, M, K, count, size, max, sum, min;
     static StringBuilder sb = new StringBuilder();
-    static Deque<Character>  deque = new LinkedList<>();
-    static int[][] map;
-    static int[] dy= new int[]{-1,1,0,0};
-    static int[] dx= new int[]{0,0,-1,1};
+    static int[][] map, tempMap;
+    static int[] arr;
+    static boolean flag = false;
+    static ArrayList<Integer> list = new ArrayList<>();
+
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        map = new int[5][6];
-        for(int i=1;i<=4;i++) {
-            st = new StringTokenizer(br.readLine());
-            String[] text = st.nextToken().split("");
-            for(int j=1;j<=5;j++) {
-                int value = Integer.parseInt(text[j-1]);
-                map[i][j]=value;
-            }
-        }
+        // StringTokenizer st = new StringTokenizer(br.readLine());
+        countingSort();
     }
-    public void DFS(int row,int col) {
-        if(map[row][col]==1) return;
-        for(int i=0;i<4;i++) {
-            map[row][col]=1;
-            int y = row + dy[i];
-            int x = col + dx[i];
-            if(y>=1 && y<=4 && x>=1 && x<=5 && map[y][x]==0) {
-                DFS(y,x);
+
+    private void countingSort() {
+        arr = new int[]{5,1,2,3,8,4,2,5,7,9,0,3,1,6,2,4,8};
+        int max = 0;
+        for(int i=0;i<arr.length;i++) {
+            max = Math.max(max,arr[i]);
+        }
+        int[] isSelected = new int[max+1];
+        for(int i=0;i<arr.length;i++) {
+            isSelected[arr[i]]++;
+        }
+        System.out.println(Arrays.toString(isSelected));
+        for(int i=0;i<isSelected.length;i++) {
+            while (isSelected[i]!=0) {
+                isSelected[i]--;
+                System.out.print(i+" ");
             }
         }
     }
@@ -42,14 +43,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.input();
-        for(int i=1;i<=4;i++) {
-            for(int j=1;j<=5;j++) {
-                if(map[i][j]==0) {
-                    count++;
-                    main.DFS(i,j);
-                }
-            }
-        }
-        System.out.println(count);
+        System.out.println(Arrays.toString(arr));
     }
 }
