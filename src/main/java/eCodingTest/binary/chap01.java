@@ -1,11 +1,11 @@
+package eCodingTest.binary;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main {
+public class chap01 {
 
     static int N,M;
     static int[] arr;
@@ -26,6 +26,7 @@ public class Main {
         int lt = min;
         int rt = max;
         System.out.println(lt+" "+rt);
+        int result = 0;
         while (lt<=rt) {
             System.out.println(lt + " "+rt);
             int mid = (lt+rt)/2;
@@ -33,14 +34,13 @@ public class Main {
             for(int i=0;i<N;i++) {
                 if(arr[i]>mid) value+=arr[i]-mid;
             }
-            if(value==M) {
-                System.out.println(value);
-                break;
-            } else if(value<M) {
+            if(value<M) {
                 rt = mid-1;
             } else {
+                result=mid;
                 lt = mid+1;
             }
         }
+        System.out.println(result);
     }
 }

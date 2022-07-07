@@ -1,11 +1,11 @@
+package eCodingTest.binary;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main {
+public class chap02 {
 
     static int N,M;
     static int[] arr;
@@ -20,27 +20,32 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         for(int i=0;i<N;i++) {
             arr[i]=Integer.parseInt(st.nextToken());
-            max = Math.max(max,arr[i]);
         }
-        int min=0;
-        int lt = min;
-        int rt = max;
-        System.out.println(lt+" "+rt);
+        int lt =0;
+        int rt=N-1;
         while (lt<=rt) {
-            System.out.println(lt + " "+rt);
+            System.out.println(lt+" "+rt);
             int mid = (lt+rt)/2;
-            int value=0;
-            for(int i=0;i<N;i++) {
-                if(arr[i]>mid) value+=arr[i]-mid;
-            }
-            if(value==M) {
-                System.out.println(value);
-                break;
-            } else if(value<M) {
-                rt = mid-1;
-            } else {
+            if(arr[mid]<M){
                 lt = mid+1;
+            } else {
+                rt=mid-1;
             }
         }
+        System.out.println(lt);
+        lt =0;
+        rt=N-1;
+        while (lt<=rt) {
+            System.out.println(lt+" "+rt);
+            int mid = (lt+rt)/2;
+            if(arr[mid]<=M){
+                lt = mid+1;
+            } else {
+                rt=mid-1;
+            }
+        }
+        System.out.println(lt);
     }
+
 }
+
