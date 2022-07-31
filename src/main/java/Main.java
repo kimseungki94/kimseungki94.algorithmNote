@@ -1,7 +1,13 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
 
 public class Main {
     static int N, M, count, max, min;
@@ -14,11 +20,19 @@ public class Main {
     static Queue<Point> waterQueue = new LinkedList<>();
     static Queue<Point> queue = new LinkedList<>();
 
+<<<<<<< HEAD
     public static void main(String[] args) throws IOException {
+=======
+    static int N,M;
+    static int[] arr;
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws IOException{
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
+<<<<<<< HEAD
         map = new char[N][M];
         min = Integer.MAX_VALUE;
         isSelected = new boolean[N][M];
@@ -80,10 +94,38 @@ public class Main {
                     String a = "aa";
                     Map<String,String> map = new HashMap<>();
                 }
+=======
+        arr = new int[N];
+        int max=0;
+        st = new StringTokenizer(br.readLine());
+        for(int i=0;i<N;i++) {
+            arr[i]=Integer.parseInt(st.nextToken());
+            max = Math.max(max,arr[i]);
+        }
+        int min=0;
+        int lt = min;
+        int rt = max;
+        System.out.println(lt+" "+rt);
+        while (lt<=rt) {
+            System.out.println(lt + " "+rt);
+            int mid = (lt+rt)/2;
+            int value=0;
+            for(int i=0;i<N;i++) {
+                if(arr[i]>mid) value+=arr[i]-mid;
+            }
+            if(value==M) {
+                System.out.println(value);
+                break;
+            } else if(value<M) {
+                rt = mid-1;
+            } else {
+                lt = mid+1;
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
             }
         }
         return -1;
     }
+<<<<<<< HEAD
 
     public static void waterMove() {
         int len = waterQueue.size();
@@ -100,4 +142,6 @@ public class Main {
             }
         }
     }
+=======
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
 }
