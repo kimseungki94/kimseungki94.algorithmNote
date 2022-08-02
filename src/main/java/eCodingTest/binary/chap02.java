@@ -23,7 +23,11 @@ public class chap02 {
         }
         int lt =0;
         int rt=N-1;
+<<<<<<< HEAD
         while (lt<rt) {
+=======
+        while (lt<=rt) {
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
             System.out.println(lt+" "+rt);
             int mid = (lt+rt)/2;
             if(arr[mid]<M){
@@ -35,7 +39,11 @@ public class chap02 {
         System.out.println(lt);
         lt =0;
         rt=N-1;
+<<<<<<< HEAD
         while (lt<rt) {
+=======
+        while (lt<=rt) {
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
             System.out.println(lt+" "+rt);
             int mid = (lt+rt)/2;
             if(arr[mid]<=M){
@@ -44,7 +52,10 @@ public class chap02 {
                 rt=mid-1;
             }
         }
+<<<<<<< HEAD
         System.out.println(lt+" "+rt);
+=======
+>>>>>>> ec1d5845cdf660fd7e17737676432c77efedcbe7
         System.out.println(lt);
     }
 
