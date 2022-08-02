@@ -23,7 +23,7 @@ public class chap02 {
         }
         int lt =0;
         int rt=N-1;
-        while (lt<=rt) {
+        while (lt<rt) {
             System.out.println(lt+" "+rt);
             int mid = (lt+rt)/2;
             if(arr[mid]<M){
@@ -35,7 +35,7 @@ public class chap02 {
         System.out.println(lt);
         lt =0;
         rt=N-1;
-        while (lt<=rt) {
+        while (lt<rt) {
             System.out.println(lt+" "+rt);
             int mid = (lt+rt)/2;
             if(arr[mid]<=M){
@@ -44,6 +44,7 @@ public class chap02 {
                 rt=mid-1;
             }
         }
+        System.out.println(lt+" "+rt);
         System.out.println(lt);
     }
 
