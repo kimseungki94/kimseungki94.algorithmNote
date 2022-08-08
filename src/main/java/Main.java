@@ -24,20 +24,20 @@ public class Main {
     }
 
     private static void DFS(int sum, int limit) {
-        if(limit==M) return;
-        if(limit==3) {
-            if(max<sum && sum<=M) {
-                max=sum;
+        if (limit == M) return;
+        if (limit == 3) {
+            if (max < sum && sum <= M) {
+                max = sum;
             }
             return;
         }
-        for(int i=limit;i<N;i++) {
-            if(!isVisited[i]) {
-                isVisited[i]=true;
-                sum+=arr[i];
-                DFS(sum,limit+1);
-                sum-=arr[i];
-                isVisited[i]=false;
+        for (int i = limit; i < N; i++) {
+            if (!isVisited[i]) {
+                isVisited[i] = true;
+                sum += arr[i];
+                DFS(sum, limit + 1);
+                sum -= arr[i];
+                isVisited[i] = false;
             }
         }
     }
