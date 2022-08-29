@@ -1,10 +1,14 @@
 package polymorphism;
 
 public class Parent {
-    public int sum(int a,int b){
-        return a*b;
-    }
+    private int son;
+
     public String print(){
         return "parent Print()";
     }
+
+    public Parent(int son) {
+        this.son = son;
+    }
+
 }
