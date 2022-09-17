@@ -1,7 +1,7 @@
 package defaultMethod;
 
 public interface uTest {
-    static void test() {
+    default void dTest() {
         System.out.println("sd");
     }
 }

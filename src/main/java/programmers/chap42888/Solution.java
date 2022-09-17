@@ -3,6 +3,8 @@ package programmers.chap42888;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Solution {
     public static class Command {
@@ -50,6 +52,9 @@ public class Solution {
             } else {
                 map.put(command.index,command.name);
             }
+        });
+        list.stream().filter(i -> i.command.equals("Enter")).forEach(p -> {
+
         });
         System.out.println(map);
         ArrayList<String> answerTemp = new ArrayList<>();
