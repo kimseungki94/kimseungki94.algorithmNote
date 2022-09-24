@@ -15,6 +15,7 @@ public class Main {
         hashMap.put(p1,1);
         hashMap.put(p2,2);
         System.out.println(hashMap.size());
+        System.out.println(hashMap);
     }
     public void test(ArrayList<? extends Parent> c) {
         Parent p = c.get(0);
