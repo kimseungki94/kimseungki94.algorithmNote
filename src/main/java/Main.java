@@ -17,24 +17,12 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        value = new int[N];
-        dp = new int[M + 1];
-        for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            value[i] = Integer.parseInt(st.nextToken());
-        }
-        Arrays.fill(dp,10001);
-        dp[0]=0;
     }
 
     public static void Solution() {
-        for (int i = 0; i < N; i++) {
-            for (int j = 1; j <= M; j++) {
-                if (value[i] <= j) {
-                    dp[j]=Math.min(dp[j],dp[j-value[i]]+1);
-                }
-            }
-        }
+
+    }
+
+    private static void findValue(int index) {
     }
 }
