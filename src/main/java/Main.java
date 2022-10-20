@@ -20,7 +20,6 @@ public class Main {
     }
 
     public static void Solution() {
-        System.out.println();
     }
 
     private static void findValue(int index) {
